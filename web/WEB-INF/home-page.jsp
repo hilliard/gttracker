@@ -29,10 +29,14 @@
         <table>
             <tbody>
                 <tr>
-                    <td>First Row</td>
+                    <td>
+                        <a href="${pageContext.request.contextPath}/product/list">Products</a>
+                    </td>
                 </tr>
                 <tr>
-                    <td>Second Row</td>
+                    <td>
+                        <a href="${pageContext.request.contextPath}/customer/list">Customers</a>
+                    </td>
                 </tr>
             </tbody>
         </table>

@@ -1,20 +1,49 @@
-<!--<% response.sendRedirect("customer/list"); %> -->
-<!-- <%@ page import="com.goldtending.HelloWorld" %> -->
-<%--
-  Created by IntelliJ IDEA.
-  User: hilliard
-  Date: 2/11/2017
-  Time: 5:18 PM
-  To change this template use File | Settings | File Templates.
---%>
-<!--
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<!DOCTYPE html>
 <html>
-  <head>
-    <title>My Cool Page</title>
-  </head>
-  <body>
-  <h3 class="message" ><%=HelloWorld.getMessage()%></h3>
-  </body>
+
+<head>
+    <title>Home Page</title>
+
+    <link type="text/css"
+          rel="stylesheet"
+          href="${pageContext.request.contextPath}/resources/css/style.css">
+
+    <link type="text/css"
+          rel="stylesheet"
+          href="${pageContext.request.contextPath}/resources/css/add-customer-style.css">
+
+
+</head>
+
+    <body>
+        <div id="wrapper">
+            <div id="header">
+                <h2>GT Tracker - Track Things</h2>
+            </div>
+        </div>
+
+        <div id="container">
+            <h3 align="center">Choose Sumpin</h3>
+        </div>
+        <table align="center">
+            <tbody>
+            <tr>
+                <td>
+                    <a href="${pageContext.request.contextPath}/product/list">Products</a>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <a href="${pageContext.request.contextPath}/customer/list">Customers</a>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <a href="${pageContext.request.contextPath}/order/list">Orders</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </body>
 </html>
--->

@@ -75,9 +75,6 @@ public class CustomerDAOImpl implements CustomerDAO {
         theQuery.executeUpdate();
 
     }
-    // need to inject the session factory
-
-
 
 
 }
