@@ -254,6 +254,281 @@ INSERT INTO `payment_details` VALUES
 /*!40000 ALTER TABLE `payment_details` ENABLE KEYS */;
 
 
+-- The entity is the album/movie/product created --
+
+DROP TABLE IF EXISTS `entity`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `entity` (
+  `entiy_id` int(11) NOT NULL AUTO_INCREMENT,
+  `performer` varchar(255) DEFAULT NULL,
+  `title` varchar(255) DEFAULT NULL,
+  `time` time default NULL,
+  `genre` varchar(100) default NULL,
+  `year` year(4) default NULL,
+  `stars` double default NULL,
+  `vote` int(6) default NULL,
+  `publisher` varchar(255) default NULL,
+  `status` varchar(25) DEFAULT NULL,
+   PRIMARY KEY (`entiy_id`),
+   UNIQUE KEY `id` (`entiy_id`),
+   KEY `artist` (`performer`),
+   KEY `title` (`title`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `entity`
+--
+
+-- LOCK TABLES `artist` WRITE;
+/*!40000 ALTER TABLE `entity` DISABLE KEYS */;
+
+INSERT INTO `entity` VALUES 
+  (1,'Beatles','The White Album','3:43','Rock','1967','4.3', 'yes','Apple Music','verified'),
+  (2,'Tom Petty','The Black Album', '33:51','Rock','1973','4.1', 'yes','Apple Music','verified'),
+  (3,'Cameo','Strange', '40:43','RnB','1977','5.0','yes','Chocolate City','verified');
+
+/*!40000 ALTER TABLE `artist` ENABLE KEYS */;
+
+
+-- This would be the primary person on the entity created --
+
+DROP TABLE IF EXISTS `artist`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `artist` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `artist_or_group_name` varchar(50) DEFAULT NULL,
+  `group_members` varchar(30) DEFAULT NULL,
+  `corporate_entity` varchar(20) DEFAULT NULL,
+  -- body_of_work is discograpy --
+  `body_of_work` varchar(120) DEFAULT NULL,
+  `notes` varchar (255) DEFAULT NULL,
+  `aka` varchar(50),
+  `status` varchar(25) DEFAULT NULL,
+   PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `artist`
+--
+
+-- LOCK TABLES `artist` WRITE;
+/*!40000 ALTER TABLE `order_details` DISABLE KEYS */;
+
+INSERT INTO `artist` VALUES 
+  (1,'John Doe','David Adams, Mickey Mouse','RCA','Album1, Album2','Cool Note', 'JD', 'verified'),
+  (2,'John Legend','Fred F, Mickey Mouse','Sony','Album1, Album2','Note 1', 'JohnL', 'in-process'),
+  (3,'John Moe','Humpty, Donald Duck','Paramount','Album1, Album2','A Note', 'JMoe', 'new');
+
+/*!40000 ALTER TABLE `artist` ENABLE KEYS */;
+
+
+
+--
+-- Table structure for table `entity_artist_xref`
+--
+
+/*!40000 ALTER TABLE `entity_artist_xref` ENABLE KEYS */;
+
+
+-- This would be the primary person on the entity created --
+
+DROP TABLE IF EXISTS `entity_artist_xref`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `entity_artist_xref` (
+  `album_id` int(11) NOT NULL AUTO_INCREMENT,
+  `performers_id` int(11) NOT NULL,
+  KEY `album_id_2` (`entiy_id`, `performers_id`)  
+  ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `entity_artist_xref`
+--
+
+-- LOCK TABLES `entity_artist_xref` WRITE;
+/*!40000 ALTER TABLE `entity_artist_xref` DISABLE KEYS */;
+
+INSERT INTO `entity_artist_xref` VALUES 
+  (1,2),
+  (2,3),
+  (3,3);
+
+/*!40000 ALTER TABLE `entity_artist_xref` ENABLE KEYS */;
+
+
+
+
+-- This would be the musicians/actors table people who performed on product -- 
+
+DROP TABLE IF EXISTS `performers`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `performers` (
+  `performers_id` int(11) NOT NULL AUTO_INCREMENT,
+  `performer_name` varchar(200) DEFAULT NULL,
+  `status` varchar(25) DEFAULT NULL,
+   PRIMARY KEY (`performers_id`),
+   KEY  `performer_name`(`performer_name`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `performers`
+--
+
+-- LOCK TABLES `performers` WRITE;
+/*!40000 ALTER TABLE `performers` DISABLE KEYS */;
+
+INSERT INTO `performers` VALUES 
+  (1,'William Shakespeare','verified'),
+  (2,'William Shatner', 'in-process'),
+  (3,'Tony Bennet','new');
+
+/*!40000 ALTER TABLE `artist` ENABLE KEYS */;
+
+-- This would be the cover art or movie poster -- 
+
+DROP TABLE IF EXISTS `artwork`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `artwork` (
+  `entity_id` int(11) NOT NULL AUTO_INCREMENT,
+  `image` longblob NOT NULL,
+  `mime` varchar(15) DEFAULT NULL,
+  `pg` int(1) NOT NULL DEFAULT '1',
+   PRIMARY KEY (`entity_id`)
+   ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `artwork`
+--
+
+-- LOCK TABLES `artwork` WRITE;
+/*!40000 ALTER TABLE `artwork` DISABLE KEYS */;
+INSERT INTO `artwork` VALUES 
+  (1,'SpongebobPic','jpg', 'pg'),
+  (2,'NakedPic', 'png', 'pg'),
+  (3,'MommyPic','bmp', 'pg');
+
+/*!40000 ALTER TABLE `artwork` ENABLE KEYS */;
+
+
+
+--
+-- Table structure for table `instruments`
+--
+
+/*!40000 ALTER TABLE `instruments` ENABLE KEYS */;
+
+
+-- This would be the instruments on the entity created --
+
+DROP TABLE IF EXISTS `instruments`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `instruments` (
+  `instruments_id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` text NOT NULL,
+  PRIMARY KEY (`instruments_id`),
+  UNIQUE KEY `instruments_id` (`instruments_id`)  
+  ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `instruments`
+--
+
+-- LOCK TABLES `instruments` WRITE;
+/*!40000 ALTER TABLE `entity_artist_xref` DISABLE KEYS */;
+
+INSERT INTO `instruments` VALUES 
+  (1,'Tuba'),
+  (2,'Bass'),
+  (3,'Guitar');
+
+/*!40000 ALTER TABLE `instruments` ENABLE KEYS */;
+
+
+
+--
+-- Table structure for table `nexus`
+--
+
+/*!40000 ALTER TABLE `nexut` ENABLE KEYS */;
+
+
+-- This would be the primary person on the entity created --
+
+DROP TABLE IF EXISTS `nexus`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `nexus` (
+  `entity_id` int(11) NOT NULL AUTO_INCREMENT,
+  `performers_id` int(11) NOT NULL,
+  `instruments_id` int(6) DEFAULT NULL,
+  KEY `entity_id` (`entiy_id`, `performers_id`)  
+  ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `nexus`
+--
+
+-- LOCK TABLES `nexus` WRITE;
+/*!40000 ALTER TABLE `nexus` DISABLE KEYS */;
+
+INSERT INTO `nexus` VALUES 
+  (1,2),
+  (2,3),
+  (3,3);
+
+/*!40000 ALTER TABLE `nexus` ENABLE KEYS */;
+
+
+
+/*!40000 ALTER TABLE `shelf` ENABLE KEYS */;
+
+
+-- This would be a holding area like a cart i think --
+
+DROP TABLE IF EXISTS `shelf`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `shelf` (
+  `entity_id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL,
+  `storage` varchar(128) DEFAULT NULL,
+  `quality` varchar(32) DEFAULT NULL,
+  `format` varchar(32) DEFAULT NULL,
+  `comment` varchar(25) DEFAULT NULL,
+   KEY `entity_id` (`entity_id`, `user_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `shelf`
+--
+
+-- LOCK TABLES `shelf` WRITE;
+/*!40000 ALTER TABLE `shelf` DISABLE KEYS */;
+
+INSERT INTO `shelf` VALUES 
+  (1,1,'200Mb','High','Disk','Cool Comment'),
+  (2,3,'100Mb','Low','Tape','Nice Comment'),
+  (3,4,'300Mb','Med','BluRay','Bad Comment');
+
+/*!40000 ALTER TABLE `shelf` ENABLE KEYS */;
+
+
+
+
+
 -- UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
